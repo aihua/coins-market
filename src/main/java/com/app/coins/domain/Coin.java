@@ -4,9 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -30,8 +33,9 @@ public class Coin implements Serializable {
     @Enumerated(EnumType.STRING)
     private Composition composition;
 
-    @Column(name = "country", nullable = false)
-    private String country;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(table = "country", name = "id", nullable = false)
+    private Country country;
 
     @Column(name = "year", nullable = false)
     private Integer year;
@@ -43,8 +47,11 @@ public class Coin implements Serializable {
     @Enumerated(EnumType.STRING)
     private Grade grade;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price")
     private BigDecimal price;
+
+    public Coin() {
+    }
 
     private enum Grade {
         GOOD(1.1f), VERY_GOOD(1.2f), FINE(1.5f), VERY_FINE(1.65f), EXTRA_FINE(2.5f);
@@ -84,11 +91,11 @@ public class Coin implements Serializable {
         this.composition = composition;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 

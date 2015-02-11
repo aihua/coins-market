@@ -1,21 +1,50 @@
 package com.app.coins.service;
 
+import com.app.coins.dao.GenericDao;
 import com.app.coins.domain.Coin;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
  * TODO: Add comment
  */
-public interface CoinService {
+@Service
+public class CoinService {
 
-    Long save(Coin coin);
+    @Autowired
+    @Qualifier("coinDao")
+    private GenericDao<Coin, Long> coinDao;
 
-    Coin read(Long id);
+    @Autowired
+    private NotificationService notificationService;
 
-    List<Coin> readAll();
+    public void save(Coin coin) {
+        Long persistedId = coinDao.persist(coin);
+        Coin persistedCoin = coinDao.find(persistedId);
+        notificationService.notifySubscribers(persistedCoin);
+    }
 
-    void update(Coin coin);
+    public Coin read(Long id) {
+        return coinDao.find(id);
+    }
 
-    void delete(Coin coin);
+    public List<Coin> readAll() {
+        return coinDao.findAll();
+    }
+
+    public void update(Coin coin) {
+        coinDao.update(coin);
+    }
+
+    public void delete(Coin coin) {
+        coinDao.delete(coin);
+    }
+
+    private BigDecimal calculatePrice(Coin coin) {
+        return null;
+    }
 }
