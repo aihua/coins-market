@@ -2,6 +2,8 @@ package com.app.coins.service;
 
 import com.app.coins.dao.GenericDao;
 import com.app.coins.domain.Coin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import java.util.List;
 @Service
 public class CoinService {
 
+    private final static Logger Logger = LoggerFactory.getLogger(CoinService.class);
+
     @Autowired
     @Qualifier("coinDao")
     private GenericDao<Coin, Long> coinDao;
@@ -23,9 +27,14 @@ public class CoinService {
     private NotificationService notificationService;
 
     public void save(Coin coin) {
+        Logger.info("Saving new Coin started");
         Long persistedId = coinDao.persist(coin);
-        Coin persistedCoin = coinDao.find(persistedId);
-        notificationService.notifySubscribers(persistedCoin);
+        if (persistedId != null) {
+            Coin persistedCoin = coinDao.find(persistedId);
+            notificationService.notifySubscribers(persistedCoin);
+        } else {
+            Logger.warn("Coin can't be saved!");
+        }
     }
 
     public Coin read(Long id) {

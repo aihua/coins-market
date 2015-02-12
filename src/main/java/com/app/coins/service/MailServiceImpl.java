@@ -14,7 +14,20 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private MailSender mailSender;
 
+    @Override
     public void sendMail(String from, String[] to, String subject, String text) {
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom(from);
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+
+        mailSender.send(message);
+    }
+
+    @Override
+    public void sendMail(String from, String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom(from);

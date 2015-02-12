@@ -8,4 +8,6 @@ import com.app.coins.domain.Coin;
 public interface NotificationService {
 
     void notifySubscribers(Coin coin);
+
+    void notifySupervisor(Coin coin);
 }

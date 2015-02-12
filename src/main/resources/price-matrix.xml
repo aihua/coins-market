@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<matrix>
+    <coinType>
+        <country>US</country>
+        <composition>Silver</composition>
+        <yearFrom>1903</yearFrom>
+        <yearTill>1936</yearTill>
+        <grade>any</grade>
+        <price>50</price>
+    </coinType>
+    <coinType>
+        <country>RU</country>
+        <composition>Other</composition>
+        <yearFrom>1727</yearFrom>
+        <yearTill>1729</yearTill>
+        <grade>VeryFine</grade>
+        <price>2500</price>
+    </coinType>
+    <coinType>
+        <country>RU</country>
+        <composition>Other</composition>
+        <yearFrom>1727</yearFrom>
+        <yearTill>1729</yearTill>
+        <grade>ExtraFine</grade>
+        <price>3200</price>
+    </coinType>
+    <coinType>
+        <country>UK</country>
+        <composition>Gold</composition>
+        <yearFrom>1343</yearFrom>
+        <yearTill>1344</yearTill>
+        <grade>any</grade>
+        <price>500000</price>
+    </coinType>
+    <coinType>
+        <country>US</country>
+        <composition>Gold</composition>
+        <yearFrom>1907</yearFrom>
+        <yearTill>1907</yearTill>
+        <grade>VeryFine</grade>
+        <price>2750000</price>
+    </coinType>
+</matrix>

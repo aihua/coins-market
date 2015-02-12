@@ -6,4 +6,6 @@ package com.app.coins.service;
 public interface MailService {
 
     void sendMail(String from, String[] to, String subject, String text);
+
+    void sendMail(String from, String to, String subject, String text);
 }

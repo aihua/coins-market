@@ -15,6 +15,10 @@ public class NotificationServiceImpl implements NotificationService {
     private static final String EMAIL_TITLE = "New coins!";
     private static final String EMAIL_TEXT = "New coin is coming: ";
 
+    private static final String SUPERVISOR_ADDRESS = "supervisor@email.com";
+    private static final String SUPERVISOR_EMAIL_TITLE = "Something going wrong!";
+    private static final String SUPERVISOR_EMAIL_TEXT = "Do something with that coin: ";
+
     @Autowired
     private MailService mailService;
 
@@ -26,5 +30,10 @@ public class NotificationServiceImpl implements NotificationService {
         Country country = countryService.read(coin.getCountry().getId());
         String[] subscribers = (String[]) country.getSubscribers().toArray();
         mailService.sendMail(FROM_ADDRESS, subscribers, EMAIL_TITLE, EMAIL_TEXT + coin.getDescription());
+    }
+
+    @Override
+    public void notifySupervisor(Coin coin) {
+        mailService.sendMail(FROM_ADDRESS, SUPERVISOR_ADDRESS, SUPERVISOR_EMAIL_TITLE, SUPERVISOR_EMAIL_TEXT + coin.getDescription());
     }
 }
