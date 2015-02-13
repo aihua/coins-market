@@ -33,10 +33,10 @@
         <property name="host" value="localhost" />
         <property name="port" value="25" />
     </bean>
-<!--
-    <bean id="mailService" class="com.app.coins.service.MailService">
+
+    <bean id="mailService" class="com.app.coins.service.MailServiceImpl">
         <property name="mailSender" ref="mailSender" />
-    </bean>-->
+    </bean>
 
     <!-- Dao -->
 

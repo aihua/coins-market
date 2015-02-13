@@ -28,8 +28,8 @@ public class Subscriber implements Serializable {
     @Column(name = "name", nullable = false)
     private String emailAddress;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "country")
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "subscribers")
+//    @JoinTable(name = "country")
     private Set<Country> countries;
 
     public Subscriber() {

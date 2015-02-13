@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -31,10 +32,11 @@ public class Country implements Serializable {
     @Column(name = "fullName", nullable = false)
     private String fullName;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "countries")
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "subscriber")
     private Set<Subscriber> subscribers;
 
-    @OneToMany(fetch = FetchType.EAGER, targetEntity=Coin.class, mappedBy = "country", cascade = CascadeType.ALL)
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
     private Set<Coin> coins;
 
     public Country() {

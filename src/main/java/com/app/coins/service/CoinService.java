@@ -2,6 +2,7 @@ package com.app.coins.service;
 
 import com.app.coins.dao.GenericDao;
 import com.app.coins.domain.Coin;
+import com.app.coins.parsing.PriceTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,12 @@ public class CoinService {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private PriceTypeService priceTypeService;
+
     public void save(Coin coin) {
         Logger.info("Saving new Coin started");
+        coin.setPrice(calculatePrice(coin));
         Long persistedId = coinDao.persist(coin);
         if (persistedId != null) {
             Coin persistedCoin = coinDao.find(persistedId);
@@ -54,6 +59,11 @@ public class CoinService {
     }
 
     private BigDecimal calculatePrice(Coin coin) {
-        return null;
+        BigDecimal price = priceTypeService.extractPrice(coin);
+        if (price == null) {
+            //TODO: add logging
+            notificationService.notifySupervisor(coin);
+        }
+        return price;
     }
 }
