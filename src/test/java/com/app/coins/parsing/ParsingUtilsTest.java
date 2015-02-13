@@ -1,22 +1,22 @@
-package com.app.coins.service;
+package com.app.coins.parsing;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static org.junit.Assert.*;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/test-context.xml")
-public class MailServiceTest {
+public class ParsingUtilsTest {
 
     @Autowired
-    private MailService mailService;
+    private ParsingUtils parsingUtils;
 
     @Test
-//    @Ignore
-    public void testSendMail() throws Exception {
-        mailService.sendMail("some@email.com", new String[]{"Papercut@user.com"}, "Test!!!!!", "Cool text!");
+    public void testParseResource() throws Exception {
+        parsingUtils.parseResource();
     }
 }

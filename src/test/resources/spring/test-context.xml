@@ -38,4 +38,21 @@
         <property name="mailSender" ref="mailSender" />
     </bean>-->
 
+    <!-- Dao -->
+
+    <bean id="coinDao" class="com.app.coins.dao.GenericDaoImpl">
+        <constructor-arg value="com.app.coins.domain.Coin"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="countryDao" class="com.app.coins.dao.GenericDaoImpl">
+        <constructor-arg value="com.app.coins.domain.Country"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="subscriberDao" class="com.app.coins.dao.GenericDaoImpl">
+        <constructor-arg value="com.app.coins.domain.Subscriber"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
 </beans>

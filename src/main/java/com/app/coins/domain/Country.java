@@ -11,7 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 /**
  * TODO: Add comment
@@ -32,10 +32,10 @@ public class Country implements Serializable {
     private String fullName;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "countries")
-    private List<Subscriber> subscribers;
+    private Set<Subscriber> subscribers;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "country", cascade = CascadeType.ALL)
-    private List<Coin> coins;
+    @OneToMany(fetch = FetchType.EAGER, targetEntity=Coin.class, mappedBy = "country", cascade = CascadeType.ALL)
+    private Set<Coin> coins;
 
     public Country() {
     }
@@ -64,19 +64,19 @@ public class Country implements Serializable {
         this.fullName = fullName;
     }
 
-    public List<Subscriber> getSubscribers() {
+    public Set<Subscriber> getSubscribers() {
         return subscribers;
     }
 
-    public void setSubscribers(List<Subscriber> subscribers) {
+    public void setSubscribers(Set<Subscriber> subscribers) {
         this.subscribers = subscribers;
     }
 
-    public List<Coin> getCoins() {
+    public Set<Coin> getCoins() {
         return coins;
     }
 
-    public void setCoins(List<Coin> coins) {
+    public void setCoins(Set<Coin> coins) {
         this.coins = coins;
     }
 }
