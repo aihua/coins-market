@@ -26,14 +26,15 @@ public class PriceTypeService {
     }
 
     public BigDecimal extractPrice(Coin coin) {
+        priceTypes = loadPriceTypes();
         BigDecimal price = null;
         for (PriceType priceType : priceTypes) {
             if (priceType.getCountry().equalsIgnoreCase(coin.getCountry().getName())
                     && priceType.getComposition().equalsIgnoreCase(coin.getComposition().name())
-                    && priceType.getYearFrom() >= coin.getYear()
-                    && priceType.getYearTill() <= coin.getYear()
+                    && priceType.getYearFrom().compareTo(coin.getYear()) != 1
+                    && priceType.getYearTill().compareTo(coin.getYear()) != -1
                     && (priceType.getGrade().equalsIgnoreCase("any") || priceType.getGrade().equalsIgnoreCase(coin.getGrade().name()))) {
-                price = priceType.getPrice().multiply(calculateMultiplier(priceType.getGrade()));
+                price = priceType.getPrice().multiply(calculateMultiplier(priceType.getGrade(), coin.getGrade()));
             } else {
                 //TODO: logging Price is not set!!!!
             }
@@ -49,21 +50,21 @@ public class PriceTypeService {
         return priceTypes;
     }
 
-    private BigDecimal calculateMultiplier(String grade) {
+    private BigDecimal calculateMultiplier(String matrixGrade, Coin.Grade coinGrade) {
         BigDecimal multiplier;
-        if (grade.equalsIgnoreCase("any")) {
-            multiplier = BigDecimal.valueOf(determineCoinGrade(grade).getPriceMultiplier());
+        if (matrixGrade.equalsIgnoreCase("any")) {
+            multiplier = BigDecimal.valueOf(determineCoinGrade(coinGrade).getPriceMultiplier());
         } else {
             multiplier = BigDecimal.ONE;
         }
         return multiplier;
     }
 
-    private Coin.Grade determineCoinGrade(String incomingGrade) {
+    private Coin.Grade determineCoinGrade(Coin.Grade incomingGrade) {
         Coin.Grade coinGrade = null;
         for (Coin.Grade grade : Coin.Grade.values()) {
-            if (grade.name().equalsIgnoreCase(incomingGrade)) {
-                coinGrade = grade;
+            if (grade.equals(incomingGrade)) {
+                coinGrade = grade; //TODO add break
             } else {
                 // TODO: logging
             }

@@ -33,8 +33,8 @@ public class Coin implements Serializable {
     @Enumerated(EnumType.STRING)
     private Composition composition;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "countryid", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "countryid", nullable = false)
     private Country country;
 
     @Column(name = "year", nullable = false)
@@ -54,15 +54,15 @@ public class Coin implements Serializable {
     }
 
     public enum Grade {
-        GOOD(1.1f), VERY_GOOD(1.2f), FINE(1.5f), VERY_FINE(1.65f), EXTRA_FINE(2.5f);
+        ANY(1.0), GOOD(1.1), VERYGOOD(1.2), FINE(1.5), VERYFINE(1.65), EXTRAFINE(2.5);
 
-        Float priceMultiplier;
+        Double priceMultiplier;
 
-        Grade(float priceMultiplier) {
+        Grade(Double priceMultiplier) {
             this.priceMultiplier = priceMultiplier;
         }
 
-        public Float getPriceMultiplier() {
+        public Double getPriceMultiplier() {
             return priceMultiplier;
         }
     }

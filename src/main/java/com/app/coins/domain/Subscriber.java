@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -28,8 +29,10 @@ public class Subscriber implements Serializable {
     @Column(name = "name", nullable = false)
     private String emailAddress;
 
-//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "subscribers")
-//    @JoinTable(name = "country")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "subscriber_country",
+            joinColumns = { @JoinColumn(name = "subscriber_id", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "country_id", nullable = false, updatable = false) })
     private Set<Country> countries;
 
     public Subscriber() {
