@@ -1,15 +1,18 @@
 package com.app.coins.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 /**
  * TODO: Add comment
@@ -26,8 +29,11 @@ public class Subscriber implements Serializable {
     @Column(name = "name", nullable = false)
     private String emailAddress;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "subscribers")
-    private List<Country> countries;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "subscriber_country",
+            joinColumns = { @JoinColumn(name = "subscriber_id", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "country_id", nullable = false, updatable = false) })
+    private Set<Country> countries;
 
     public Subscriber() {
     }
@@ -48,11 +54,11 @@ public class Subscriber implements Serializable {
         this.emailAddress = emailAddress;
     }
 
-    public List<Country> getCountries() {
+    public Set<Country> getCountries() {
         return countries;
     }
 
-    public void setCountries(List<Country> countries) {
+    public void setCountries(Set<Country> countries) {
         this.countries = countries;
     }
 }

@@ -34,7 +34,7 @@ public class Coin implements Serializable {
     private Composition composition;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(table = "country", name = "id", nullable = false)
+    @JoinColumn(name = "countryid", nullable = false)
     private Country country;
 
     @Column(name = "year", nullable = false)
@@ -53,17 +53,21 @@ public class Coin implements Serializable {
     public Coin() {
     }
 
-    private enum Grade {
-        GOOD(1.1f), VERY_GOOD(1.2f), FINE(1.5f), VERY_FINE(1.65f), EXTRA_FINE(2.5f);
+    public enum Grade {
+        ANY(1.0), GOOD(1.1), VERYGOOD(1.2), FINE(1.5), VERYFINE(1.65), EXTRAFINE(2.5);
 
-        Float priceMultiplier;
+        Double priceMultiplier;
 
-        Grade(float priceMultiplier) {
+        Grade(Double priceMultiplier) {
             this.priceMultiplier = priceMultiplier;
+        }
+
+        public Double getPriceMultiplier() {
+            return priceMultiplier;
         }
     }
 
-    private enum Composition {
+    public enum Composition {
         SILVER, GOLD, COPPER, OTHER
     }
 

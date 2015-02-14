@@ -37,4 +37,8 @@ public class MailServiceImpl implements MailService {
 
         mailSender.send(message);
     }
+
+    public void setMailSender(MailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 }

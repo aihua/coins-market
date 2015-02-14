@@ -33,9 +33,26 @@
         <property name="host" value="localhost" />
         <property name="port" value="25" />
     </bean>
-<!--
-    <bean id="mailService" class="com.app.coins.service.MailService">
+
+    <bean id="mailService" class="com.app.coins.service.MailServiceImpl">
         <property name="mailSender" ref="mailSender" />
-    </bean>-->
+    </bean>
+
+    <!-- Dao -->
+
+    <bean id="coinDao" class="com.app.coins.dao.GenericDaoImpl">
+        <constructor-arg value="com.app.coins.domain.Coin"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="countryDao" class="com.app.coins.dao.GenericDaoImpl">
+        <constructor-arg value="com.app.coins.domain.Country"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="subscriberDao" class="com.app.coins.dao.GenericDaoImpl">
+        <constructor-arg value="com.app.coins.domain.Subscriber"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
 </beans>

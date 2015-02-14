@@ -7,11 +7,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 /**
  * TODO: Add comment
@@ -31,11 +32,11 @@ public class Country implements Serializable {
     @Column(name = "fullName", nullable = false)
     private String fullName;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "countries")
-    private List<Subscriber> subscribers;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "countries", cascade = CascadeType.ALL)
+    private Set<Subscriber> subscribers;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "country", cascade = CascadeType.ALL)
-    private List<Coin> coins;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
+    private Set<Coin> coins;
 
     public Country() {
     }
@@ -64,19 +65,19 @@ public class Country implements Serializable {
         this.fullName = fullName;
     }
 
-    public List<Subscriber> getSubscribers() {
+    public Set<Subscriber> getSubscribers() {
         return subscribers;
     }
 
-    public void setSubscribers(List<Subscriber> subscribers) {
+    public void setSubscribers(Set<Subscriber> subscribers) {
         this.subscribers = subscribers;
     }
 
-    public List<Coin> getCoins() {
+    public Set<Coin> getCoins() {
         return coins;
     }
 
-    public void setCoins(List<Coin> coins) {
+    public void setCoins(Set<Coin> coins) {
         this.coins = coins;
     }
 }
