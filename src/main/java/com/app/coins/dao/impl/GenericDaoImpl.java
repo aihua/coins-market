@@ -1,5 +1,6 @@
-package com.app.coins.dao;
+package com.app.coins.dao.impl;
 
+import com.app.coins.dao.GenericDao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 

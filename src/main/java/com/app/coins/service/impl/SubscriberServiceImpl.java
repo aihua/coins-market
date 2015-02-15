@@ -1,7 +1,8 @@
-package com.app.coins.service;
+package com.app.coins.service.impl;
 
 import com.app.coins.dao.GenericDao;
 import com.app.coins.domain.Subscriber;
+import com.app.coins.service.SubscriberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

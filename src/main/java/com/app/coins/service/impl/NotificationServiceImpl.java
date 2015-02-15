@@ -1,8 +1,10 @@
-package com.app.coins.service;
+package com.app.coins.service.impl;
 
 import com.app.coins.domain.Coin;
 import com.app.coins.domain.Country;
 import com.app.coins.domain.Subscriber;
+import com.app.coins.service.MailService;
+import com.app.coins.service.NotificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

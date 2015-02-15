@@ -1,5 +1,6 @@
-package com.app.coins.service;
+package com.app.coins.service.impl;
 
+import com.app.coins.service.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

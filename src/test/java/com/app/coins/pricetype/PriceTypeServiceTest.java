@@ -1,8 +1,7 @@
-package com.app.coins.parsing;
+package com.app.coins.pricetype;
 
 import com.app.coins.domain.Coin;
 import com.app.coins.domain.Country;
-import com.app.coins.pricetype.PriceTypeService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
