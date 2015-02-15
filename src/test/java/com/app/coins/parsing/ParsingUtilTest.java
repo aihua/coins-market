@@ -1,5 +1,6 @@
 package com.app.coins.parsing;
 
+import com.app.coins.pricetype.ParsingUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +11,13 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/test-context.xml")
-public class ParsingUtilsTest {
+public class ParsingUtilTest {
 
     @Autowired
-    private ParsingUtils parsingUtils;
+    private ParsingUtil parsingUtil;
 
     @Test
     public void testParseResource() throws Exception {
-//        parsingUtils = new ParsingUtils();
-        List<PriceType> priceTypes = parsingUtils.parseResource();
+        parsingUtil.parseXmlResource();
     }
 }

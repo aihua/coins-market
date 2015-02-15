@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * TODO: Add comment
+ * Implementation of service for operation with country
  */
 @Service
 public class CountryServiceImpl implements CountryService {

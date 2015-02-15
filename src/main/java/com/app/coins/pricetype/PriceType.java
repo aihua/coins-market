@@ -1,9 +1,9 @@
-package com.app.coins.parsing;
+package com.app.coins.pricetype;
 
 import java.math.BigDecimal;
 
 /**
- * TODO: Add class description
+ * Price type built on matrix
  */
 public class PriceType {
 

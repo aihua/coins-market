@@ -3,6 +3,8 @@ package com.app.coins.service;
 import com.app.coins.domain.Coin;
 import com.app.coins.domain.Country;
 import com.app.coins.domain.Subscriber;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +13,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * TODO: Add comment
+ * Implementation of service for sending notification to recipients
  */
 @Service
 public class NotificationServiceImpl implements NotificationService {
+
+    private final static Logger Logger = LoggerFactory.getLogger(NotificationServiceImpl.class);
 
     private static final String EMAIL_TITLE = "New coins!";
     private static final String EMAIL_TEXT = "New coin is coming: ";
@@ -30,6 +34,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void notifySubscribers(Coin coin) {
+        Logger.info("Starting notify subscribers");
         Country country = coin.getCountry();
         if (country.getSubscribers().size() > 0) {
             String[] subscribers = extractSubscribesEmail(country.getSubscribers());
@@ -39,6 +44,7 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void notifySupervisor(Coin coin) {
+        Logger.info("Starting notify supervisor");
         mailService.sendMail(adminAddress, supervisorAddress, SUPERVISOR_EMAIL_TITLE, SUPERVISOR_EMAIL_TEXT + coin.getDescription());
     }
 

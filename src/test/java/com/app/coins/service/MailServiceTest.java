@@ -15,7 +15,7 @@ public class MailServiceTest {
     private MailService mailService;
 
     @Test
-//    @Ignore
+    @Ignore
     public void testSendMail() throws Exception {
         mailService.sendMail("some@email.com", new String[]{"Papercut@user.com"}, "Test!!!!!", "Cool text!");
     }

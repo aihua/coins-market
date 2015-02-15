@@ -2,6 +2,8 @@ package com.app.coins.service;
 
 import com.app.coins.dao.GenericDao;
 import com.app.coins.domain.Subscriber;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -10,10 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * TODO: Add comment
+ * Implementation of service for operation with subscriber
  */
 @Service
 public class SubscriberServiceImpl implements SubscriberService {
+
+    private final static Logger Logger = LoggerFactory.getLogger(SubscriberServiceImpl.class);
 
     @Autowired
     @Qualifier("subscriberDao")
@@ -21,7 +25,9 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @Transactional
     public void save(Subscriber subscriber) {
+        Logger.info("Starting saving subscriber");
         String persistedEmail = subscriberDao.persist(subscriber);
+        Logger.info("Subscriber " + persistedEmail + " saved");
     }
 
     @Transactional

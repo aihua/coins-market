@@ -2,17 +2,15 @@ package com.app.coins.service;
 
 import com.app.coins.domain.Country;
 import com.app.coins.domain.Subscriber;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/test-context.xml")
@@ -25,6 +23,7 @@ public class SubscriberServiceTest {
     private CountryService countryService;
 
     @Test
+    @Ignore
     public void testSave() throws Exception {
         Subscriber subscriber = new Subscriber();
         subscriber.setEmail("Papercut@user.com");
@@ -51,6 +50,7 @@ public class SubscriberServiceTest {
     }
 
     @Test
+    @Ignore
     public void testDelete() throws Exception {
         Subscriber subscriber = subscriberService.read("Papercut@user.com");
         subscriberService.delete(subscriber);

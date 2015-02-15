@@ -2,6 +2,7 @@ package com.app.coins.parsing;
 
 import com.app.coins.domain.Coin;
 import com.app.coins.domain.Country;
+import com.app.coins.pricetype.PriceTypeService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,5 +49,21 @@ public class PriceTypeServiceTest {
 
         BigDecimal price = priceTypeService.extractPrice(coin);
         Assert.assertEquals(BigDecimal.valueOf(82500000, 2), price);
+    }
+
+    @Test
+    public void testExtractPriceThatCanNotBeCalculated() throws Exception {
+        Coin coin = new Coin();
+        Country country = new Country();
+        country.setName("UA");
+        coin.setCountry(country);
+        coin.setCirculation(666L);
+        coin.setComposition(Coin.Composition.GOLD);
+        coin.setDescription("Metal ukrainian coin 2015");
+        coin.setGrade(Coin.Grade.VERYFINE);
+        coin.setYear(2015);
+
+        BigDecimal price = priceTypeService.extractPrice(coin);
+        Assert.assertEquals(null, price);
     }
 }

@@ -1,0 +1,1 @@
+insert into country (full_name, name) values ('UK', 'United Kingdoms')

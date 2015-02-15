@@ -2,7 +2,7 @@ package com.app.coins.service;
 
 import com.app.coins.dao.GenericDao;
 import com.app.coins.domain.Coin;
-import com.app.coins.parsing.PriceTypeService;
+import com.app.coins.pricetype.PriceTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * TODO: Add comment
+ * Implementation of service for operation with coin
  */
 @Service
 public class CoinServiceImpl implements CoinService {
@@ -33,19 +33,20 @@ public class CoinServiceImpl implements CoinService {
 
     @Transactional
     public void save(Coin coin) {
-        Logger.info("Saving new Coin started");
+        Logger.info("Saving new coin");
         coin.setPrice(calculatePrice(coin));
         coinDao.persist(coin);
         if (coin.getPrice() != null) {
             notificationService.notifySubscribers(coin);
         } else {
             notificationService.notifySupervisor(coin);
-            Logger.warn("Coin can't be saved!");
+            Logger.warn("Coin price didn't set");
         }
     }
 
     @Transactional
     public Coin read(Long id) {
+        Logger.info("Reading coin with id: " + id);
         return coinDao.find(id);
     }
 
@@ -65,10 +66,6 @@ public class CoinServiceImpl implements CoinService {
     }
 
     private BigDecimal calculatePrice(Coin coin) {
-        BigDecimal price = priceTypeService.extractPrice(coin);
-        if (price == null) {
-            //TODO: add logging
-        }
-        return price;
+        return priceTypeService.extractPrice(coin);
     }
 }
