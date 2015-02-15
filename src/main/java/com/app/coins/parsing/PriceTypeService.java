@@ -14,7 +14,7 @@ import java.util.List;
  * TODO: Add comment
  */
 @Service
-public class PriceTypeService {
+public class PriceTypeService implements PriceTypeServiceMBean {
 
     private List<PriceType> priceTypes;
 
@@ -22,7 +22,11 @@ public class PriceTypeService {
     private ParsingUtils parsingUtils;
 
     public PriceTypeService() {
-//        priceTypes = loadPriceTypes();
+    }
+
+    @Override
+    public void refreshPriceTypeFromFile() {
+        priceTypes = loadPriceTypes();
     }
 
     public BigDecimal extractPrice(Coin coin) {
@@ -46,10 +50,6 @@ public class PriceTypeService {
         return parsingUtils.parseResource();
     }
 
-    public List<PriceType> getPriceTypes() {
-        return priceTypes;
-    }
-
     private BigDecimal calculateMultiplier(String matrixGrade, Coin.Grade coinGrade) {
         BigDecimal multiplier;
         if (matrixGrade.equalsIgnoreCase("any")) {
@@ -70,5 +70,9 @@ public class PriceTypeService {
             }
         }
         return coinGrade;
+    }
+
+    public List<PriceType> getPriceTypes() {
+        return priceTypes;
     }
 }

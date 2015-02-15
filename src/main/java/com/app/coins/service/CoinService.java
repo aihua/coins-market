@@ -33,11 +33,11 @@ public class CoinService {
     public void save(Coin coin) {
         Logger.info("Saving new Coin started");
         coin.setPrice(calculatePrice(coin));
-        Long persistedId = coinDao.persist(coin);
-        if (persistedId != null) {
-            Coin persistedCoin = coinDao.find(persistedId);
-            notificationService.notifySubscribers(persistedCoin);
+        coinDao.persist(coin);
+        if (coin.getPrice() != null) {
+            notificationService.notifySubscribers(coin);
         } else {
+            notificationService.notifySupervisor(coin);
             Logger.warn("Coin can't be saved!");
         }
     }
@@ -62,7 +62,6 @@ public class CoinService {
         BigDecimal price = priceTypeService.extractPrice(coin);
         if (price == null) {
             //TODO: add logging
-            notificationService.notifySupervisor(coin);
         }
         return price;
     }

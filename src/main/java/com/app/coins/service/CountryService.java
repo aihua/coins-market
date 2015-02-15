@@ -16,14 +16,14 @@ public class CountryService {
 
     @Autowired
     @Qualifier("countryDao")
-    private GenericDao<Country, Long> countryDao;
+    private GenericDao<Country, String> countryDao;
 
     public void save(Country country) {
-        Long persistedId = countryDao.persist(country);
+        String persistedName = countryDao.persist(country);
     }
 
-    public Country read(Long id) {
-        return countryDao.find(id);
+    public Country read(String name) {
+        return countryDao.find(name);
     }
 
     public List<Country> readAll() {

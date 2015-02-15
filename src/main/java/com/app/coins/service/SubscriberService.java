@@ -16,14 +16,14 @@ public class SubscriberService {
 
     @Autowired
     @Qualifier("subscriberDao")
-    private GenericDao<Subscriber, Long> subscriberDao;
+    private GenericDao<Subscriber, String> subscriberDao;
 
     public void save(Subscriber subscriber) {
-        Long persistedId = subscriberDao.persist(subscriber);
+        String persistedEmail = subscriberDao.persist(subscriber);
     }
 
-    public Subscriber read(Long id) {
-        return subscriberDao.find(id);
+    public Subscriber read(String email) {
+        return subscriberDao.find(email);
     }
 
     public List<Subscriber> readAll() {

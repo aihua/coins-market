@@ -18,9 +18,9 @@ import java.util.List;
 @Component
 public class ParsingUtils {
 
+    private String filePath;
+
     public List<PriceType> parseResource() {
-        // TODO: implement loading resource from file system
-        String filePath = "src\\main\\resources\\price-matrix.xml";
         File file = new File(filePath);
         SAXBuilder builder = new SAXBuilder();
         Document document = null;
@@ -47,4 +47,7 @@ public class ParsingUtils {
         return priceTypes;
     }
 
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 }

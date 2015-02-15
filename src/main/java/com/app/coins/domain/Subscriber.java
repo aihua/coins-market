@@ -4,8 +4,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -22,36 +20,24 @@ import java.util.Set;
 public class Subscriber implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true, nullable = false)
-    private Long id;
-
-    @Column(name = "name", nullable = false)
-    private String emailAddress;
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "subscriber_country",
-            joinColumns = { @JoinColumn(name = "subscriber_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "country_id", nullable = false, updatable = false) })
+            joinColumns = { @JoinColumn(name = "subscriber_email", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "country_name", nullable = false, updatable = false) })
     private Set<Country> countries;
 
     public Subscriber() {
     }
 
-    public Long getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Set<Country> getCountries() {

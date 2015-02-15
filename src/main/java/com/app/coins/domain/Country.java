@@ -22,14 +22,10 @@ import java.util.Set;
 public class Country implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true, nullable = false)
-    private Long id;
-
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    @Column(name = "fullName", nullable = false)
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "countries", cascade = CascadeType.ALL)
@@ -39,14 +35,6 @@ public class Country implements Serializable {
     private Set<Coin> coins;
 
     public Country() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

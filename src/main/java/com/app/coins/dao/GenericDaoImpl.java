@@ -23,6 +23,7 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
     public PK persist(T newInstance) {
         PK id = (PK) getSession().save(newInstance);
         getSession().flush();
+        getSession().close();
         return id;
     }
 
@@ -30,6 +31,7 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
     public T find(PK id) {
         T object = (T) getSession().get(type, id);
         getSession().flush();
+        getSession().close();
         return object;
     }
 
@@ -37,23 +39,26 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
     public void update(T transientObject) {
         getSession().update(transientObject);
         getSession().flush();
+        getSession().close();
     }
 
     @Override
     public void delete(T persistentObject) {
         getSession().delete(persistentObject);
         getSession().flush();
+        getSession().close();
     }
 
     @Override
     public List<T> findAll() {
         List<T> list = getSession().createCriteria(type).list();
         getSession().flush();
+        getSession().close();
         return list;
     }
 
     private Session getSession() {
-        if (session == null) {
+        if (session == null || !session.isOpen()) {
             session = sessionFactory.openSession();
         }
         return session;

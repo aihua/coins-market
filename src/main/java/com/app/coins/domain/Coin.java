@@ -34,7 +34,7 @@ public class Coin implements Serializable {
     private Composition composition;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "countryid", nullable = false)
+    @JoinColumn(name = "country_name", nullable = false)
     private Country country;
 
     @Column(name = "year", nullable = false)
