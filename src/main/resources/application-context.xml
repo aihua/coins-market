@@ -14,15 +14,15 @@
 
     <tx:annotation-driven transaction-manager="transactionManager" />
 
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${db.driver}" />
         <property name="url" value="${db.url}" />
         <property name="username" value="${db.user}" />
         <property name="password" value="${db.password}" />
-    </bean>
-
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -36,6 +36,16 @@
         </property>
     </bean>
 
+    <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+        <property name="beans">
+            <map>
+                <entry key="bean:name=priceTypeService" value-ref="priceTypeService"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="priceTypeService" class="com.app.coins.pricetype.PriceTypeService" />
+
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="localhost" />
         <property name="port" value="25" />
@@ -44,6 +54,8 @@
     <bean id="parsingUtil" class="com.app.coins.pricetype.ParsingUtil">
         <property name="filePath" value="${price.file.path}" />
     </bean>
+
+    <!-- Services -->
 
     <bean id="notificationService" class="com.app.coins.service.NotificationServiceImpl">
         <property name="adminAddress" value="${admin.email}" />
