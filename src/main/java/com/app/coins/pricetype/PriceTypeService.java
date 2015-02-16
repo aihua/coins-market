@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,10 @@ public class PriceTypeService implements PriceTypeServiceMBean {
         priceTypes = loadPriceTypes();
     }
 
+    @PostConstruct
+    public void initPriceTypes() {
+        priceTypes = loadPriceTypes();
+    }
     /**
      * Calculate price of coin according to price type matrix
      *
@@ -40,7 +45,6 @@ public class PriceTypeService implements PriceTypeServiceMBean {
      */
     public BigDecimal extractPrice(Coin coin) {
         Logger.info("Starting calculating price");
-        priceTypes = loadPriceTypes(); //TODO: move to init() and create JMX method
         BigDecimal price = null;
         for (PriceType priceType : priceTypes) {
             if (priceType.getCountry().equalsIgnoreCase(coin.getCountry().getName())

@@ -1,5 +1,6 @@
-package com.app.coins.service;
+package functional.com.app.coins.service;
 
+import com.app.coins.service.MailService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

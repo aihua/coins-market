@@ -1,19 +1,25 @@
-package com.app.coins.service;
+package functional.com.app.coins.service;
 
 import com.app.coins.domain.Country;
-import org.junit.Assert;
+import com.app.coins.domain.Subscriber;
+import com.app.coins.service.CountryService;
+import com.app.coins.service.SubscriberService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/test-context.xml")
-@Transactional
-public class CountryServiceTest {
+public class SubscriberServiceTest {
+
+    @Autowired
+    private SubscriberService subscriberService;
 
     @Autowired
     private CountryService countryService;
@@ -21,19 +27,18 @@ public class CountryServiceTest {
     @Test
     @Ignore
     public void testSave() throws Exception {
-        Country country = new Country();
-        country.setName("UK");
-        country.setFullName("United Kingdoms");
-
-        countryService.save(country);
+        Subscriber subscriber = new Subscriber();
+        subscriber.setEmail("Papercut@user.com");
+        Country country = countryService.read("UK");
+        Set<Country> countries = new HashSet<Country>();
+        countries.add(country);
+        subscriber.setCountries(countries);
+        subscriberService.save(subscriber);
     }
 
     @Test
-    @Ignore
     public void testRead() throws Exception {
-        Country country = countryService.read("UK");
-        Assert.assertEquals("UK", country.getName());
-        Assert.assertEquals("United Kingdoms", country.getFullName());
+
     }
 
     @Test
@@ -47,7 +52,9 @@ public class CountryServiceTest {
     }
 
     @Test
+    @Ignore
     public void testDelete() throws Exception {
-
+        Subscriber subscriber = subscriberService.read("Papercut@user.com");
+        subscriberService.delete(subscriber);
     }
 }

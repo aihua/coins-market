@@ -1,7 +1,9 @@
-package com.app.coins.service;
+package functional.com.app.coins.service;
 
+import com.app.coins.domain.Coin;
 import com.app.coins.domain.Country;
-import com.app.coins.domain.Subscriber;
+import com.app.coins.service.CoinService;
+import com.app.coins.service.CountryService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,15 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/test-context.xml")
-public class SubscriberServiceTest {
+public class CoinServiceTest {
 
     @Autowired
-    private SubscriberService subscriberService;
+    private CoinService coinService;
 
     @Autowired
     private CountryService countryService;
@@ -25,13 +24,16 @@ public class SubscriberServiceTest {
     @Test
     @Ignore
     public void testSave() throws Exception {
-        Subscriber subscriber = new Subscriber();
-        subscriber.setEmail("Papercut@user.com");
+        Coin coin = new Coin();
         Country country = countryService.read("UK");
-        Set<Country> countries = new HashSet<Country>();
-        countries.add(country);
-        subscriber.setCountries(countries);
-        subscriberService.save(subscriber);
+        coin.setCountry(country);
+        coin.setCirculation(15000L);
+        coin.setComposition(Coin.Composition.GOLD);
+        coin.setDescription("Gold pound Coin 1344");
+        coin.setGrade(Coin.Grade.GOOD);
+        coin.setYear(1344);
+
+        coinService.save(coin);
     }
 
     @Test
@@ -50,9 +52,7 @@ public class SubscriberServiceTest {
     }
 
     @Test
-    @Ignore
     public void testDelete() throws Exception {
-        Subscriber subscriber = subscriberService.read("Papercut@user.com");
-        subscriberService.delete(subscriber);
+
     }
 }
