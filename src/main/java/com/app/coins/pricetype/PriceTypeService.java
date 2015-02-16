@@ -18,6 +18,13 @@ import java.util.List;
 @Service
 public class PriceTypeService implements PriceTypeServiceMBean {
 
+    private final static String XML_TAG_COUNTRY = "country";
+    private final static String XML_TAG_YEAR_FROM = "composition";
+    private final static String XML_TAG_COMPOSITION = "yearFrom";
+    private final static String XML_TAG_YEAR_TILL = "yearTill";
+    private final static String XML_TAG_GRADE = "grade";
+    private final static String XML_TAG_PRICE = "price";
+
     private final static Logger Logger = LoggerFactory.getLogger(PriceTypeService.class);
 
     private List<PriceType> priceTypes;
@@ -51,7 +58,8 @@ public class PriceTypeService implements PriceTypeServiceMBean {
                     && priceType.getComposition().equalsIgnoreCase(coin.getComposition().name())
                     && priceType.getYearFrom().compareTo(coin.getYear()) != 1
                     && priceType.getYearTill().compareTo(coin.getYear()) != -1
-                    && (priceType.getGrade().equalsIgnoreCase("any") || priceType.getGrade().equalsIgnoreCase(coin.getGrade().name()))) {
+                    && (priceType.getGrade().equalsIgnoreCase(Coin.Grade.ANY.name())
+                        || priceType.getGrade().equalsIgnoreCase(coin.getGrade().name()))) {
                 price = priceType.getPrice().multiply(calculateMultiplier(priceType.getGrade(), coin.getGrade()));
             }
         }
@@ -74,12 +82,12 @@ public class PriceTypeService implements PriceTypeServiceMBean {
         List<PriceType> priceTypes = new ArrayList<PriceType>();
         for (Element element : elements) {
             PriceType priceType = new PriceType();
-            priceType.setCountry(element.getChild("country").getText());
-            priceType.setComposition(element.getChild("composition").getText());
-            priceType.setYearFrom(Integer.valueOf(element.getChild("yearFrom").getText()));
-            priceType.setYearTill(Integer.valueOf(element.getChild("yearTill").getText()));
-            priceType.setGrade(element.getChild("grade").getText());
-            priceType.setPrice(new BigDecimal(element.getChild("price").getText()));
+            priceType.setCountry(element.getChild(XML_TAG_COUNTRY).getText());
+            priceType.setComposition(element.getChild(XML_TAG_COMPOSITION).getText());
+            priceType.setYearFrom(Integer.valueOf(element.getChild(XML_TAG_YEAR_FROM).getText()));
+            priceType.setYearTill(Integer.valueOf(element.getChild(XML_TAG_YEAR_TILL).getText()));
+            priceType.setGrade(element.getChild(XML_TAG_GRADE).getText());
+            priceType.setPrice(new BigDecimal(element.getChild(XML_TAG_PRICE).getText()));
             priceTypes.add(priceType);
         }
 
