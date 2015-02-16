@@ -1,10 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-    <title>Coins</title>
+    <title>Coins Market</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="description" content="Main page"/>
-    <meta name="author" content="Viktor Khvostov"/>
+    <meta name="description" content="Coins Market"/>
 
     <style type="text/css">
         .table
@@ -39,44 +39,58 @@
     </style>
 </head>
 <body>
-<h2>${message}</h2>
 <div class="table">
     <div class="title">
-        <p>This is a Table</p>
+        <p>Coins</p>
     </div>
     <div class="heading">
         <div class="cell">
-            <p>Heading 1</p>
+            <p>Description</p>
         </div>
         <div class="cell">
-            <p>Heading 2</p>
+            <p>Composition</p>
         </div>
         <div class="cell">
-            <p>Heading 3</p>
+            <p>Country</p>
+        </div>
+        <div class="cell">
+            <p>Year</p>
+        </div>
+        <div class="cell">
+            <p>Circulation</p>
+        </div>
+        <div class="cell">
+            <p>Grade</p>
+        </div>
+        <div class="cell">
+            <p>price</p>
         </div>
     </div>
-    <div class="row">
-        <div class="cell">
-            <p>row 1 Column 1</p>
+    <c:forEach var="listValue" items="${coins}">
+        <div class="row">
+            <div class="cell">
+                <p>${listValue.description}</p>
+            </div>
+            <div class="cell">
+                <p>${listValue.composition}</p>
+            </div>
+            <div class="cell">
+                <p>${listValue.country.fullName}</p>
+            </div>
+            <div class="cell">
+                <p>${listValue.year}</p>
+            </div>
+            <div class="cell">
+                <p>${listValue.circulation}</p>
+            </div>
+            <div class="cell">
+                <p>${listValue.grade}</p>
+            </div>
+            <div class="cell">
+                <p>${listValue.price}</p>
+            </div>
         </div>
-        <div class="cell">
-            <p>row 1 Column 2</p>
-        </div>
-        <div class="cell">
-            <p>row 1 Column 3</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="cell">
-            <p>row 2 Column 1</p>
-        </div>
-        <div class="cell">
-            <p>row 2 Column 2</p>
-        </div>
-        <div class="cell">
-            <p>row 2 Column 3</p>
-        </div>
-    </div>
+    </c:forEach>
 </div>
 </body>
 </html>
